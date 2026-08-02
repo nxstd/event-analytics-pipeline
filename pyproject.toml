@@ -1,0 +1,41 @@
+[project]
+name = "event-analytics-pipeline"
+version = "0.1.0"
+description = "Local event analytics pipeline demonstration"
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "aiokafka==0.12.0",
+    "clickhouse-connect==0.8.18",
+    "fastapi==0.116.1",
+    "prometheus-client==0.22.1",
+    "pydantic-settings==2.10.1",
+    "redis==6.4.0",
+    "uvicorn[standard]==0.35.0",
+]
+
+[dependency-groups]
+dev = [
+    "httpx==0.28.1",
+    "pytest==8.4.1",
+    "pytest-asyncio==1.1.0",
+    "ruff==0.12.11",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
