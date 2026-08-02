@@ -1,0 +1,73 @@
+{
+  "annotations": {"list": []},
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {"defaults": {"unit": "short"}, "overrides": []},
+      "gridPos": {"h": 8, "w": 8, "x": 0, "y": 0},
+      "id": 1,
+      "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "textMode": "auto"},
+      "targets": [{"expr": "sum(events_received_total)", "refId": "A"}],
+      "title": "Accepted events",
+      "type": "stat"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {"defaults": {"unit": "eps"}, "overrides": []},
+      "gridPos": {"h": 8, "w": 8, "x": 8, "y": 0},
+      "id": 2,
+      "options": {"legend": {"displayMode": "list", "placement": "bottom", "showLegend": true}},
+      "targets": [{"expr": "sum(rate(events_processed_total[5m]))", "legendFormat": "processed", "refId": "A"}],
+      "title": "Event processing rate",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {"defaults": {"unit": "eps"}, "overrides": []},
+      "gridPos": {"h": 8, "w": 8, "x": 16, "y": 0},
+      "id": 3,
+      "options": {"legend": {"displayMode": "list", "placement": "bottom", "showLegend": true}},
+      "targets": [
+        {"expr": "sum(rate(events_publish_errors_total[5m]))", "legendFormat": "publish", "refId": "A"},
+        {"expr": "sum(rate(events_processing_errors_total[5m]))", "legendFormat": "processing", "refId": "B"}
+      ],
+      "title": "Errors",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {"defaults": {"unit": "short"}, "overrides": []},
+      "gridPos": {"h": 8, "w": 8, "x": 0, "y": 8},
+      "id": 4,
+      "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "textMode": "auto"},
+      "targets": [{"expr": "sum(events_duplicates_total)", "refId": "A"}],
+      "title": "Duplicate events",
+      "type": "stat"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {"defaults": {"unit": "s"}, "overrides": []},
+      "gridPos": {"h": 8, "w": 16, "x": 8, "y": 8},
+      "id": 5,
+      "options": {"legend": {"displayMode": "list", "placement": "bottom", "showLegend": true}},
+      "targets": [{"expr": "histogram_quantile(0.95, sum by (le) (rate(event_processing_duration_seconds_bucket[5m])))", "legendFormat": "p95", "refId": "A"}],
+      "title": "Consumer processing time p95",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 41,
+  "tags": ["events", "local-demo"],
+  "templating": {"list": []},
+  "time": {"from": "now-30m", "to": "now"},
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Event Analytics Pipeline",
+  "uid": "event-analytics-pipeline",
+  "version": 1
+}

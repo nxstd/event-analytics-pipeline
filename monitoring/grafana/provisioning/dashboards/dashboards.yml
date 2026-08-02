@@ -1,0 +1,12 @@
+apiVersion: 1
+
+providers:
+  - name: Event Analytics
+    orgId: 1
+    folder: Event Analytics
+    type: file
+    disableDeletion: true
+    editable: true
+    updateIntervalSeconds: 10
+    options:
+      path: /var/lib/grafana/dashboards
